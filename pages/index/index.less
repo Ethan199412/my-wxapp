@@ -1,0 +1,62 @@
+.index_swiper {
+    swiper {
+        width: 750rpx;
+        height: 340rpx;
+
+        image {
+            width: 100%;
+        }
+    }
+}
+
+.index_cate {
+    display: flex;
+
+    navigator {
+        flex: 1;
+        padding: 20rpx;
+
+        image {
+            width: 100%;
+        }
+    }
+}
+
+@width: (33vw * 386 / 232 / 2);
+
+.index_floor {
+    .floor_group {
+        .floor_title {
+            padding-top: 10rpx;
+            padding-bottom: 10rpx;
+            image {
+                width: 100%;
+            }
+        }
+
+        // 不清楚的地方，float，child，css 能否计算， &，都不是太清楚
+        .floor_list {
+            navigator {
+                float: left;
+                width: 33%;
+
+                image {
+                    width: 100%;
+                    height: 100%;
+                    padding-bottom: 10rpx;
+                }
+
+                &:nth-last-child(-n+4) {
+                   // image{
+                        height: @width;
+                        border-left: 10rpx solid #fff;
+                        // border-bottom: 10rpx solid #fff
+                    //}
+                }
+            }
+
+
+
+        }
+    }
+}

@@ -1,4 +1,6 @@
 /**app.wxss**/
+
+@import './styles/iconfont.wxss';
 .container {
   height: 100%;
   display: flex;
@@ -7,4 +9,19 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
+
+page, view, text, swiper, swiper-item, image, navigator {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+page {
+  --themeColor: #eb4450;
+  font-size: 28rpx;
+}
+
+image{
+  width: 100%;
+}
