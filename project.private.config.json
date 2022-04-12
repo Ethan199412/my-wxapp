@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -16,6 +17,27 @@
           "pathName": "pages/category/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/category/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/good_list/index",
+          "query": "cid=5",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods_detail/index",
+          "query": "goods_id=43986",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

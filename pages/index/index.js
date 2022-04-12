@@ -1,5 +1,7 @@
 //Page Object wx-page
 import { request } from '../../request/index'
+import regeneratorRuntime from '../../lib/runtime/runtime'
+
 Page({
   data: {
     swiperList: [],
@@ -24,30 +26,30 @@ Page({
 
   getSwiperList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata',
+      url: '/home/swiperdata',
     }).then(result => {
       this.setData({
-        swiperList: result.data.message
+        swiperList: result
       })
     })
   },
 
   getCateList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/catitems',
+      url: '/home/catitems',
     }).then(result => {
       console.log('[p0.1] result', result)
       this.setData({
-        catesList: result.data.message
+        catesList: result
       })
     })
   },
 
   getFloorList() {
-    request({ url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/floorData' }).then(
+    request({ url: '/home/floorData' }).then(
       result => {
         this.setData({
-          floorList: result.data.message
+          floorList: result
         })
       }
     )

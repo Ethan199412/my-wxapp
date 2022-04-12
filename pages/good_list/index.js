@@ -1,66 +1,96 @@
-// pages/good_list/index.js
+import { request } from "../../request/index"
+
+// 上滑触底时加载下一页
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    tabs: [
+      {
+        id: 0,
+        value: '综合',
+        isActive: true
+      },
+      {
+        id: 0,
+        value: '销量',
+        isActive: false
+      },
+      {
+        id: 0,
+        value: '价格',
+        isActive: false
+      }
+    ],
+    goods: []
   },
 
+  QueryParams: {
+    query: '',
+    cid: '',
+    pagenum: 1,
+    pagesize: 10
+  },
+
+  totalPages: 1,
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options)
+    this.QueryParams.cid = options.cid
+    this.getGoodsList()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  async getGoodsList() {
+    const res = await request({ url: '/goods/search', data: this.QueryParams })
+    console.log(res)
+    this.totalPages = Math.ceil(res.total / this.QueryParams.pagesize)
 
+    console.log({ totalPages: this.totalPages })
+    this.setData({ goods: [...this.data.goods, ...res.goods] })
+    wx.stopPullDownRefresh()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  handleTabsItemChange(e) {
+    console.log(e)
+    const { index } = e.detail
+    const { tabs } = this.data
+    tabs.forEach((e, i) => {
+      if (i == index) {
+        e.isActive = true
+        return
+      }
+      e.isActive = false
+    })
+    this.setData({
+      tabs
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  onReachBottom() {
+    if (this.QueryParams.pagenum >= this.totalPages) {
+      console.log('%c' + '没有下一页', 'color:red')
+      wx.showToast({
+        title: '没有下一页数据了',
+      })
+    }
+    else {
+      this.QueryParams.pagenum += 1
+      console.log('%c' + '有下一页数据', 'color:red')
+      this.getGoodsList()
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+  onPullDownRefresh(){
+    console.log('往下滑动')
+    this.setData({
+      goods:[]
+    })
 
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    this.QueryParams.pagenum=1
+    this.getGoodsList()
   }
 })
