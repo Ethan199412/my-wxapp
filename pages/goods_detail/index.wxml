@@ -8,7 +8,10 @@
     >
         <swiper-item
             wx:for='{{goodsObj.pics}}'
+            wx:for-index="index"
             wx:key='pics_id'
+            bindtap="handlePreviewImage"
+            data-index="{{index}}"
         >
             <image
                 mode='widthFix'
@@ -34,5 +37,20 @@
     <view class="goods_info_title">图文详情</view>
     <view class="goods_info_content">
         <rich-text nodes="{{goodsObj.goods_introduce}}"></rich-text>
+    </view>
+</view>
+
+<view class="btn_tool">
+    <view class="tool_item">
+        <view class="iconfont icon-kefu"></view>
+        <view>
+            客服
+        </view>
+        <view class="tool_item btn_cart">
+            加入购物车
+        </view>
+        <view class="tool_item btn_buy">
+            立即购买
+        </view>
     </view>
 </view>

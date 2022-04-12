@@ -17,11 +17,30 @@ Page({
     this.getGoodsDetail(goods_id)
   },
 
+  handlePreviewImage(e) {
+    console.log(e)
+    const { index } = e.currentTarget.dataset
+    const urls = this.data.goodsObj.pics.map(v => v.pics_mid)
+    wx.previewImage({
+      current: urls[index],
+      urls
+    })
+  },
+
   async getGoodsDetail(goods_id) {
     const res = await request({ url: '/goods/detail', data: { goods_id } })
+    // this.goodsObj = res
+
     console.log(res)
+    const { goods_name, goods_price, goods_introduce, pics } = res
+
     this.setData({
-      goodsObj: res
+      goodsObj: {
+        goods_name,
+        goods_price,
+        goods_introduce,
+        pics
+      }
     })
   }
 
