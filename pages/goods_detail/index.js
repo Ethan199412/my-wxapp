@@ -27,6 +27,29 @@ Page({
     })
   },
 
+  handleCartAdd() {
+    let cart = wx.getStorageSync('cart') || [];
+
+    let index = cart.findIndex(e => e.goods_id == this.goodsObj.goods_id)
+
+    console.log({ index, cart }, this.goodsObj)
+    if (index == -1) {
+      this.goodsObj.num = 1
+      cart.push(this.goodsObj)
+    }
+    else {
+      cart[index].num++
+    }
+
+    wx.setStorageSync('cart', cart)
+
+    wx.showToast({
+      title: '加入成功',
+      icon: 'success',
+      mask: true
+    })
+  },
+
   async getGoodsDetail(goods_id) {
     const res = await request({ url: '/goods/detail', data: { goods_id } })
     // this.goodsObj = res
@@ -34,6 +57,7 @@ Page({
     console.log(res)
     const { goods_name, goods_price, goods_introduce, pics } = res
 
+    this.goodsObj = res
     this.setData({
       goodsObj: {
         goods_name,
