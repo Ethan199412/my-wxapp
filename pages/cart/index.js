@@ -1,39 +1,38 @@
 // pages/cart/index.js
+
+import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx.js";
+
+getSetting
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    address: {}
   },
-  handleChooseAddress() {
-    // 获取权限状态
-    wx.getSetting({
-      success: (result) => {
-        const scopeAddress = result.authSetting["scope.address"]
-        if (scopeAddress == true || scopeAddress == undefined) {
-          wx.chooseAddress({
-            success: res => {
-              console.log(res)
-            }
-          })
-        }
-        else {
-          wx.openSetting({
-            success: (res1) => {
-              wx.chooseAddress({
-                success: res2 => {
-                  console.log(res2)
-                }
-              })
-            },
 
-          });
+  onShow() {
+    const address = wx.getStorageSync('address');
 
-        }
-      },
-    });
+    this.setData({
+      address
+    })
+  },
+
+  async handleChooseAddress() {
+    const res1 = await getSetting();
+
+    const scopeAddress = res1.authSetting['scope.address']
+
+    if (scopeAddress == false)
+      await openSetting();
+
+    const address = await chooseAddress()
+    console.log(address)
+
+    address.all = address.provinceName + address.cityName + address.countyName + address.detailInfo
+    wx.setStorageSync('address', address);
 
   },
 

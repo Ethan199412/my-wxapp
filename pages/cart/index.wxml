@@ -1,11 +1,25 @@
 <!--pages/cart/index.wxml-->
 
 <view class="revice_address_row">
-    <view class="address_btn">
+    <view
+        class="address_btn"
+        wx:if="{{!address.userName}}"
+    >
         <button
             class="primary"
             plain
             bindtap="handleChooseAddress"
         >获取收货地址</button>
+    </view>
+    <view wx:else class="'user_info_row">
+        <view class="user_info">
+            <view>
+                {{address.userName}}
+            </view>
+            <view>{{address.all}}</view>
+            <view class="user_phone">
+                {{address.telNumber}}
+            </view>
+        </view>
     </view>
 </view>
