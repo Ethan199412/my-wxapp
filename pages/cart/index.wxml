@@ -9,9 +9,14 @@
             class="primary"
             plain
             bindtap="handleChooseAddress"
-        >获取收货地址</button>
+        >
+            获取收货地址
+        </button>
     </view>
-    <view wx:else class="'user_info_row">
+    <view
+        wx:else
+        class="'user_info_row"
+    >
         <view class="user_info">
             <view>
                 {{address.userName}}
@@ -19,6 +24,77 @@
             <view>{{address.all}}</view>
             <view class="user_phone">
                 {{address.telNumber}}
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="cart_content">
+    <view class="cart_title">
+        购物车
+    </view>
+    <view class="cart_main">
+        <view class="cart_item">
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox>
+
+                    </checkbox>
+                </checkbox-group>
+            </view>
+
+            <navigator
+                class="cart_img_wrap"
+                url="/"
+            >
+                <image
+                    mode="widthFix"
+                    src="https://i0.hdslb.com/bfs/face/a71b4dd6647ddf0c813bcf74e062edab9224cb0e.jpg@96w_96h_1c_1s.webp"
+                ></image>
+            </navigator>
+
+            <view class="cart_info_wrap">
+                <view class="goods_name">TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C</view>
+                <view class="goods_price_wrap">
+                    <view class="goods_price">￥999</view>
+                    <view class="cart_num_tool">
+                        <view class="num_edit">-</view>
+                        <view class="goods_num">10</view>
+                        <view class="num_edit">+</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="cart_item">
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox>
+
+                    </checkbox>
+                </checkbox-group>
+            </view>
+
+            <navigator
+                class="cart_img_wrap"
+                url="/"
+            >
+                <image
+                    mode="widthFix"
+                    src="https://i0.hdslb.com/bfs/face/a71b4dd6647ddf0c813bcf74e062edab9224cb0e.jpg@96w_96h_1c_1s.webp"
+                ></image>
+            </navigator>
+
+            <view class="cart_info_wrap">
+                <view class="goods_name">TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C</view>
+                <view class="goods_price_wrap">
+                    <view class="goods_price">￥999</view>
+                    <view class="cart_num_tool">
+                        <view class="num_edit">-</view>
+                        <view class="goods_num">10</view>
+                        <view class="num_edit">+</view>
+                    </view>
+                </view>
             </view>
         </view>
     </view>
