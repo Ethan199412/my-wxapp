@@ -15,17 +15,17 @@
     </view>
     <view
         wx:else
-        class="'user_info_row"
+        class="address_info"
     >
-        <view class="user_info">
-            <view>
+        <view class="user_info_row">
+            <view class="user_info">
                 {{address.userName}}
             </view>
-            <view>{{address.all}}</view>
             <view class="user_phone">
                 {{address.telNumber}}
             </view>
         </view>
+        <view>{{address.all}}</view>
     </view>
 </view>
 
@@ -34,68 +34,86 @@
         购物车
     </view>
     <view class="cart_main">
-        <view class="cart_item">
-            <view class="cart_chk_wrap">
-                <checkbox-group bindchange="">
-                    <checkbox>
-
-                    </checkbox>
-                </checkbox-group>
-            </view>
-
-            <navigator
-                class="cart_img_wrap"
-                url="/"
+        <block wx:if="{{cart.length!=0}}">
+            <view
+                class="cart_item"
+                wx:for="{{cart}}"
+                wx:key="goods_id"
             >
-                <image
-                    mode="widthFix"
-                    src="https://i0.hdslb.com/bfs/face/a71b4dd6647ddf0c813bcf74e062edab9224cb0e.jpg@96w_96h_1c_1s.webp"
-                ></image>
-            </navigator>
+                <view class="cart_chk_wrap">
+                    <checkbox-group
+                        data-id="{{item.goods_id}}"
+                        bindchange="handleItemChange"
+                    >
+                        <checkbox checked="{{item.checked}}">
 
-            <view class="cart_info_wrap">
-                <view class="goods_name">TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C</view>
-                <view class="goods_price_wrap">
-                    <view class="goods_price">￥999</view>
-                    <view class="cart_num_tool">
-                        <view class="num_edit">-</view>
-                        <view class="goods_num">10</view>
-                        <view class="num_edit">+</view>
+                        </checkbox>
+                    </checkbox-group>
+                </view>
+
+                <navigator
+                    class="cart_img_wrap"
+                    url="/"
+                >
+                    <image
+                        mode="widthFix"
+                        src="{{item.goods_small_logo}}"
+                    ></image>
+                </navigator>
+
+                <view class="cart_info_wrap">
+                    <view class="goods_name">{{item.goods_name}}</view>
+                    <view class="goods_price_wrap">
+                        <view class="goods_price">￥{{item.goods_price}}</view>
+                        <view class="cart_num_tool">
+                            <view
+                                class="num_edit"
+                                bindtap="handleItemNumEdit"
+                                data-operation="{{-1}}"
+                                data-id="{{item.goods_id}}"
+                            >-</view>
+                            <view class="goods_num">{{item.num}}</view>
+                            <view
+                                class="num_edit"
+                                bindtap="handleItemNumEdit"
+                                data-operation="{{1}}"
+                                data-id="{{item.goods_id}}"
+                            >+</view>
+                        </view>
                     </view>
                 </view>
             </view>
-        </view>
-
-        <view class="cart_item">
-            <view class="cart_chk_wrap">
-                <checkbox-group bindchange="">
-                    <checkbox>
-
-                    </checkbox>
-                </checkbox-group>
-            </view>
-
-            <navigator
-                class="cart_img_wrap"
-                url="/"
+        </block>
+        <block wx:else>
+            <image
+                mode="widthFix"
+                src="http://khoil.com/catalog/view/theme/default/image/no_items.png"
             >
-                <image
-                    mode="widthFix"
-                    src="https://i0.hdslb.com/bfs/face/a71b4dd6647ddf0c813bcf74e062edab9224cb0e.jpg@96w_96h_1c_1s.webp"
-                ></image>
-            </navigator>
 
-            <view class="cart_info_wrap">
-                <view class="goods_name">TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C TCL 65Q960C</view>
-                <view class="goods_price_wrap">
-                    <view class="goods_price">￥999</view>
-                    <view class="cart_num_tool">
-                        <view class="num_edit">-</view>
-                        <view class="goods_num">10</view>
-                        <view class="num_edit">+</view>
-                    </view>
-                </view>
-            </view>
+            </image>
+        </block>
+    </view>
+</view>
+
+<view class="footer_tool">
+    <view class="all_chk_wrap">
+        <checkbox-group bindchange="handleItemAllCheck">
+            <checkbox checked="{{allChecked}}">
+                全选
+            </checkbox>
+        </checkbox-group>
+    </view>
+    <view class="total_price_wrap">
+        <view class="total_price">
+            <text>合计：</text>
+            <text class="total_price_text">￥{{totalPrice}}</text>
         </view>
+        <view>
+            包含运费
+        </view>
+
+    </view>
+    <view class="order_pay_wrap" bindtap="handlePay">
+        结算({{totalNum}})
     </view>
 </view>

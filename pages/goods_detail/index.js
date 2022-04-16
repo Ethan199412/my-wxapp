@@ -35,6 +35,7 @@ Page({
     console.log({ index, cart }, this.goodsObj)
     if (index == -1) {
       this.goodsObj.num = 1
+      this.goodsObj.checked = true
       cart.push(this.goodsObj)
     }
     else {
